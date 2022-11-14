@@ -33,7 +33,10 @@ jobs:
       # Performs a clean installation of all dependencies in the `package.json` file
       # For more information, see https://docs.npmjs.com/cli/ci.html
       - name: Install dependencies
-        run: npm ci
+          
+      	run: |
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        $CONDA/bin/conda env update --file environment.yml --name dg3n
 
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
