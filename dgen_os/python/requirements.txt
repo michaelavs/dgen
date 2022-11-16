@@ -4,6 +4,7 @@ matplotlib
 numpy
 openpyxl
 pandas
+pytest
 psutil
 psycopg2
 sqlalchemy
