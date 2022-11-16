@@ -16,7 +16,6 @@ dependencies:
   - pyarrow
   - psutil
   - psycopg2
-  - pytest
   - scipy
   - spyder
   - sqlalchemy
