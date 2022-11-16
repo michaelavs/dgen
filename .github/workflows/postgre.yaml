@@ -79,7 +79,7 @@ jobs:
           PYTHONPATH: '.'
           DJANGO_DEBUG: 'False'
         run: |
-          pipenv run python3 -m ci_tests.py
+          pipenv run python3 -m ci_tests
           pipenv run pytest 
         # run: |
         #   python -m pytest test
