@@ -38,6 +38,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
           pip install pipenv
+          pip install numpy
         if: steps.cache.outputs.cache-hit != 'true'
 
       # - name: Test with black
