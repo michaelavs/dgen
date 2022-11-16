@@ -42,8 +42,42 @@ jobs:
       # - name: Test with black
       #   run: |
       #     python -m black --check .
-      - name: Test with pytest
+      ##################################
+      - name: Install pipenv
+        uses: dschep/install-pipenv-action@v1
+
+      - name: Cache Pipenv virtualenv
+        uses: actions/cache@v1
+        id: pipenv-cache
+        with:
+          path: ~/.pipenv
+          key: ${{ runner.os }}-pipenv-v2-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-v2-
+
+      - name: Install Dependencies
         env:
-          DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
+          PIPENV_NOSPIN: 'true'
+          WORKON_HOME: ~/.pipenv/virtualenvs
+          PIPENV_CACHE_DIR: ~/.pipenv/pipcache
+        run: pipenv install --dev
+        if: steps.pipenv-cache.outputs.cache-hit != 'true'
+        
+      - name: Test with pytest
+        # env:
+        #   DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
+        env:
+          PIPENV_NOSPIN: 'true'
+          WORKON_HOME: ~/.pipenv/virtualenvs
+          REDIS_HOST: localhost
+          REDIS_PORT: ${{ job.services.redis.ports[6379] }}
+          DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/test_db'
+          DJANGO_SECRET_KEY: 'KEY'
+          DJANGO_SETTINGS_MODULE: CONFIG'
+          PYTHONPATH: '.'
+          DJANGO_DEBUG: 'False'
         run: |
-          python -m pytest test
+          pipenv run python manage.py migrate --noinput
+          pipenv run pytest 
+        # run: |
+        #   python -m pytest test
