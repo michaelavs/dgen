@@ -78,7 +78,7 @@ jobs:
           PYTHONPATH: '.'
           DJANGO_DEBUG: 'False'
         run: |
-          pipenv run python -m pytest test migrate --noinput
+          pipenv run python -m test migrate --noinput
           pipenv run pytest 
         # run: |
         #   python -m pytest test
