@@ -1,4 +1,4 @@
-from ci_tests import *
+from . import ci_tests
 
 if __name__ == "test_placeholder":
-    test_placeholder()
+   ci_tests.test_placeholder()
