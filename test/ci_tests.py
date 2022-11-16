@@ -1,5 +1,4 @@
 from unittest import TestCase
-import numpy as np
 
 class test_placeholder(TestCase):
     def test_placeholder(self):
