@@ -1,5 +1,4 @@
 from unittest import TestCase
-import pytest
 import numpy as np
 
 class test_placeholder(TestCase):
@@ -10,4 +9,4 @@ class test_placeholder(TestCase):
 
         assert a==b
 
-print(test_placeholder())
+# print(test_placeholder())
